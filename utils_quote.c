@@ -88,14 +88,16 @@ int ft_count_quote(char *str)
     dq = 0;
     while (str[i])
     {
-        if (str[i] == 39 && ft_check_first_quote(str) == 1)
+        if (str[i] == 39)
             sq++;
-        else if (str[i] == 34 && ft_check_first_quote(str) == 2)
+        else if (str[i] == 34)
             dq++;
         i++;
     }
-    if (sq % 2 == 1 || dq % 2 == 1)
-        return (1);
+    if (ft_check_first_quote(str) == 1)
+        return (sq);
+    else if (ft_check_first_quote(str) == 2)
+        return (dq);
     return (0);
 }
 

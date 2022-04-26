@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   utils_chunck.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 14:24:51 by grubin            #+#    #+#             */
-/*   Updated: 2022/04/25 14:41:56 by grubin           ###   ########.fr       */
+/*   Created: 2022/04/25 13:54:30 by grubin            #+#    #+#             */
+/*   Updated: 2022/04/25 14:07:25 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char *s1, char const *s2)
+int ft_str_chunck(t_data *data, int i)
 {
-	char    *str;
-    int     i;
-    int     j;
-    
-    i = 0;
-    j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	str = s1;
-	if (!str)
-		return (NULL);
-	while (s1[i])
-    {
-        str[i] = s1[i];
-        i++;
-    }
-    while (s2[j])
-    {
-        str[i + j] = s2[j];
-        j++;
-    }
-    str[i + j] = '\0';
-	return (str);
+    data->str_chunk[data->i_chunk] = data->str_rl[i];
+    data->i_chunk++;
+    i++;
+    return (i);
+}
+
+void ft_create_chunck(t_data *data, int i)
+{
+    ft_memmove(data->str_rl, data->str_rl + i , ft_strlen(data->str_rl));
+    data->str_chunk = ft_strjoin(data->str_chunk, "\n");
+    data->i_chunk++;
 }
