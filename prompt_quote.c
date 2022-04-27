@@ -1,5 +1,5 @@
 #include "minishell.h"
-
+/*
 char *ft_prompt_quote(char *str)
 {
     char *new_str;
@@ -26,4 +26,4 @@ char *ft_prompt_quote(char *str)
     if (ft_count_quote(str) == 1)
         str = ft_prompt_quote(str);
     return (str);
-}
+}*/

@@ -33,24 +33,28 @@ typedef struct s_data
     char    **tab_chunck;
 }   t_data;
 
-char *ft_prompt_quote(char *str);
+void ft_print_tab(char **tab);
+
+//char *ft_prompt_quote(char *str);
 int ft_check_first_quote(char *str);
 int ft_exec_cmd(t_data *data, char **envp);
 int ft_access_path(t_data *data);
 int ft_del_consec_quote(t_data *data);
 int ft_count_quote(char *str);
-char *ft_check_new_dquote(char *new_str);
-char *ft_check_new_quote(char *new_str);
-char *ft_del_quote(char *str);
-char *ft_prompt_quote(char *str);
-int ft_chunck_quote(t_data *data);
+//char *ft_check_new_dquote(char *new_str);
+//char *ft_check_new_quote(char *new_str);
+//char *ft_del_quote(char *str);
+//char *ft_prompt_quote(char *str);
+//int ft_chunck_quote(t_data *data);
 int ft_init_struct(t_data *data);
 void ft_malloc_chunck(t_data *data);
 int ft_create_str_chunck(t_data *data);
 void ft_create_chunck(t_data *data, int i);
 int ft_str_chunck(t_data *data, int i);
-int ft_check_tab_chunck(t_data *data);
 int ft_del_consec_backn(t_data *data);
 int ft_del_chunck_full_space(t_data *data);
+int ft_if_space(t_data *data);
+int ft_if_chevron(t_data *data);
+
 
 #endif
