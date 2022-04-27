@@ -50,5 +50,7 @@ int ft_create_str_chunck(t_data *data);
 void ft_create_chunck(t_data *data, int i);
 int ft_str_chunck(t_data *data, int i);
 int ft_check_tab_chunck(t_data *data);
+int ft_del_consec_backn(t_data *data);
+int ft_del_chunck_full_space(t_data *data);
 
 #endif

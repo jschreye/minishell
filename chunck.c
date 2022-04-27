@@ -63,16 +63,54 @@ int ft_if_charact(t_data *data)
     {
         if (data->str_rl[i] == '"' || data->str_rl[i] == '\''
             || data->str_rl[i] == '|' || data->str_rl[i] == '<'
-            || data->str_rl[i] == '>')
+            || data->str_rl[i] == '>' || data->str_rl[i] == ' ')
             break ;
-        if (data->str_rl[i] == ' ')
-            i++;
         else
-        {
             i = ft_str_chunck(data, i);
-            if (data->str_rl[i] == ' ')
+    }
+    ft_create_chunck(data, i);
+    return (0);
+}
+
+int ft_if_space(t_data *data)
+{
+    int i;
+
+    i = 0;
+    while (data->str_rl[i] == ' ')
+         i = ft_str_chunck(data, i);
+    ft_create_chunck(data, i);
+    return (0);
+}
+
+int ft_if_chevron(t_data *data)
+{
+    int i;
+
+    i = 0;
+    while (data->str_rl[i])
+    {
+        i = ft_str_chunck(data, i);
+        if (data->str_rl[i] == '<' || data->str_rl[i] == '>')
+            i = ft_str_chunck(data, i);
+        if (data->str_rl[i] == ' ')
+        {
+            while (data->str_rl[i] == ' ')
+                i = ft_str_chunck(data, i);
+        }
+        if (data->str_rl[i])
+        {
+            while (data->str_rl[i] != ' ')
+            {
+                if (data->str_rl[i] == '\0' || data->str_rl[i] == '|')
+                    break ;
+                i = ft_str_chunck(data, i);
+            }
+            if (data->str_rl[i] == ' ' || data->str_rl[i] == '\0')
                 break ;
         }
+        if (data->str_rl[i] == '|')
+            break ;
     }
     ft_create_chunck(data, i);
     return (0);
@@ -88,41 +126,6 @@ int ft_if_pipe(t_data *data)
     return (0);
 }
 
-int ft_if_chevron(t_data *data)
-{
-    int i;
-
-    i = 0;
-    if (data->str_rl[1] != '>' || data->str_rl[1] != '<')
-        i = ft_str_chunck(data, i);
-    if (data->str_rl[i] != ' ')
-    {
-        while (data->str_rl[i] != ' ')
-        {
-            i = ft_str_chunck(data, i);
-            if (data->str_rl[i] == '\0')
-                break ;
-        }
-    }
-    if (data->str_rl[i] == ' ')
-    {
-        i = ft_str_chunck(data, i);
-        while (data->str_rl[i] == ' ')
-            i = ft_str_chunck(data, i);
-        if (data->str_rl[i] != ' ')
-        {
-            while (data->str_rl[i] != ' ')
-            {
-                i = ft_str_chunck(data, i);
-                if (data->str_rl[i] == '\0')
-                    break ;
-            }
-        }
-    }
-    ft_create_chunck(data, i);
-    return (0);
-}
-
 int ft_create_str_chunck(t_data *data)
 {   
     int i = 0;
@@ -133,15 +136,18 @@ int ft_create_str_chunck(t_data *data)
             ft_if_sq(data);
         else if (data->str_rl[i] == '"')
             ft_if_dq(data);
-        else if(data->str_rl[i] == '|')
+        else if (data->str_rl[i] == '|')
             ft_if_pipe(data);
-        else if(data->str_rl[i] == '<' || data->str_rl[i] == '>')
+        else if (data->str_rl[i] == '<' || data->str_rl[i] == '>')
             ft_if_chevron(data);
+        else if (data->str_rl[i] == ' ')
+            ft_if_space(data);
         else if (data->str_rl[i])
             ft_if_charact(data);
         else
             i++;
         i = 0;
     }
+    printf("str apres = %s\ni apres = %zu\n", data->str_chunk, ft_strlen(data->str_chunk));
     return (0);
 }

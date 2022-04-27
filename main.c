@@ -11,7 +11,6 @@ int main(int argc, char **argv, char **envp)
             data.str_rl = readline("$ ");
             add_history(data.str_rl);
             ft_create_str_chunck(&data);
-            printf("str = %s\n", data.str_chunk);
             //data.tab_chunck = ft_split(data.str_chunk, '\n');
             //if(!data.tab_chunck || !data.tab_chunck[0])
              //   continue;
