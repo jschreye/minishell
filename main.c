@@ -13,6 +13,7 @@ void ft_print_tab(char **tab)
 int main(int argc, char **argv, char **envp) 
 {
     t_data data;
+    t_cmd cmd;
     if (argc == 1)
     {
         while (1)
@@ -24,7 +25,9 @@ int main(int argc, char **argv, char **envp)
             data.tab_chunck = ft_split(data.str_chunk, '\n');
             if(!data.tab_chunck || !data.tab_chunck[0])
                 continue;
-            ft_print_tab(data.tab_chunck);
+            
+            //ft_print_tab(data.tab_chunck);
+            ft_init_cmd(&data, &cmd);
             ft_access_path(&data);
             ft_exec_cmd(&data, envp);
             free(data.str_rl);

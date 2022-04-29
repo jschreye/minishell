@@ -33,6 +33,7 @@ SRCS = 	main.c \
 		init_malloc.c \
 		utils_chunck.c \
 		chunck_bis.c \
+		init_cmd.c \
 
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))

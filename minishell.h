@@ -22,6 +22,12 @@
 #include <sys/types.h>
 #include <signal.h>
 
+typedef struct s_cmd
+{
+    char **args;
+    char *path;
+}               t_cmd;
+
 typedef struct s_data
 {
     int     i_chunk;
@@ -31,6 +37,7 @@ typedef struct s_data
     char    *str_path;
     char    **tab_getenv;
     char    **tab_chunck;
+    t_cmd    *tab_args;
 }   t_data;
 
 void ft_print_tab(char **tab);
@@ -55,6 +62,6 @@ int ft_del_consec_backn(t_data *data);
 int ft_del_chunck_full_space(t_data *data);
 int ft_if_space(t_data *data);
 int ft_if_chevron(t_data *data);
-
+int ft_init_cmd(t_data *data, t_cmd *cmd);
 
 #endif
