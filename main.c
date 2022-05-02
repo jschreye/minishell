@@ -10,10 +10,16 @@ void ft_print_tab(char **tab)
     }
 }
 
+/*
+for(int i_cmd = 0; data->tab_args[i_cmd].args; i_cmd++)
+    for(int i_arg = 0; data->tab_args[i_cmd].args[i_arg]; i_arg++)
+        printf("str_tab_args[%d][%d] = %s\n",i_cmd, i_arg, data->tab_args[i_cmd].args[i_arg]);
+*/
+
 int main(int argc, char **argv, char **envp) 
 {
     t_data data;
-    t_cmd cmd;
+    
     if (argc == 1)
     {
         while (1)
@@ -25,11 +31,12 @@ int main(int argc, char **argv, char **envp)
             data.tab_chunck = ft_split(data.str_chunk, '\n');
             if(!data.tab_chunck || !data.tab_chunck[0])
                 continue;
-            
-            //ft_print_tab(data.tab_chunck);
-            ft_init_cmd(&data, &cmd);
+            ft_init_cmd(&data);
             ft_access_path(&data);
             ft_exec_cmd(&data, envp);
+            for(int i_cmd = 0; data.tab_args[i_cmd].args; i_cmd++)
+                for(int i_arg = 0; data.tab_args[i_cmd].args[i_arg]; i_arg++)
+                    printf("str_tab_args[%d][%d] = %s\n",i_cmd, i_arg, data.tab_args[i_cmd].args[i_arg]);
             free(data.str_rl);
             free(data.str_chunk);
         }

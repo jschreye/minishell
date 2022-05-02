@@ -6,7 +6,7 @@
 /*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:48:32 by grubin            #+#    #+#             */
-/*   Updated: 2022/04/25 16:22:02 by grubin           ###   ########.fr       */
+/*   Updated: 2022/04/28 14:41:35 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 #include <sys/types.h>
 #include <signal.h>
 
-typedef struct s_cmd
+typedef struct  s_cmd
 {
-    char **args;
     char *path;
-}               t_cmd;
+    char **args;
+} t_cmd;
 
 typedef struct s_data
 {
@@ -37,7 +37,7 @@ typedef struct s_data
     char    *str_path;
     char    **tab_getenv;
     char    **tab_chunck;
-    t_cmd    *tab_args;
+    t_cmd   *tab_args;
 }   t_data;
 
 void ft_print_tab(char **tab);
@@ -62,6 +62,7 @@ int ft_del_consec_backn(t_data *data);
 int ft_del_chunck_full_space(t_data *data);
 int ft_if_space(t_data *data);
 int ft_if_chevron(t_data *data);
-int ft_init_cmd(t_data *data, t_cmd *cmd);
+int ft_init_cmd(t_data *data);
+int ft_check_quote_space(t_data *data , int i);
 
 #endif

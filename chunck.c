@@ -18,12 +18,11 @@ int ft_if_sq(t_data *data)
             i = ft_str_chunck(data, i);
             if (count >= 2)
                 break;
-            while (data->str_rl[i] != '\'')
-                i = ft_str_chunck(data, i);
+            i = ft_check_quote_space(data, i);
             count++;
         }   
     }
-    ft_create_chunck(data, i);;
+    ft_create_chunck(data, i);
     return (0);
 }
 
@@ -45,8 +44,7 @@ int ft_if_dq(t_data *data)
             i = ft_str_chunck(data, i);
             if (count >= 2)
                 break;
-            while (data->str_rl[i] != '"')
-                i = ft_str_chunck(data, i);
+            i = ft_check_quote_space(data, i);
             count++;
         }   
     }
@@ -85,7 +83,7 @@ int ft_if_pipe(t_data *data)
 int ft_create_str_chunck(t_data *data)
 {   
     int i = 0;
-    ft_del_consec_quote(data);
+    //ft_del_consec_quote(data);
     while (data->str_rl[i])
     {
         if (data->str_rl[i] == '\'')
