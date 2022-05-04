@@ -37,10 +37,10 @@ int ft_access_path(t_data *data)
     while (data->tab_getenv[i])
     {
         data->str_path = ft_join(data->tab_getenv[i], final_path);
-        //printf("tab_getenv = %s\n",  data->str_path);
         if (!access(data->str_path, X_OK))
-            return (1);
+            break ;
         i++;
+        free(data->str_path);
     }
     free(final_path);
     return (0);

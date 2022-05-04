@@ -64,5 +64,6 @@ int ft_if_space(t_data *data);
 int ft_if_chevron(t_data *data);
 int ft_init_cmd(t_data *data);
 int ft_check_quote_space(t_data *data , int i);
+void ft_free(t_data *data);
 
 #endif

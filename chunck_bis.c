@@ -26,9 +26,14 @@ int ft_if_chevron(t_data *data)
     i = 0;
     while (data->str_rl[i])
     {
-        i = ft_str_chunck(data, i);
-        if (data->str_rl[i] == '<' || data->str_rl[i] == '>')
+        //i = ft_str_chunck(data, i);
+        if (data->str_rl[i + 1] == '<' || data->str_rl[i + 1] == '>')
             i = ft_str_chunck(data, i);
+        if (data->str_rl[i] == '<' || data->str_rl[i] == '>')
+        {
+            i = ft_str_chunck(data, i);
+            break ;
+        }
         if (data->str_rl[i] == ' ')
             i = ft_if_spacestr(data, i);
         if (data->str_rl[i])

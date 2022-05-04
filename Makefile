@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grubin <grubin@student.42.fr>              +#+  +:+       +#+         #
+#    By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 13:48:52 by grubin            #+#    #+#              #
-#    Updated: 2022/04/28 10:47:19 by grubin           ###   ########.fr        #
+#    Updated: 2022/05/04 10:58:04 by jschreye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ SRCS = 	main.c \
 		utils_chunck.c \
 		chunck_bis.c \
 		init_cmd.c \
+		free.c \
+		#check_error.c \
 
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
