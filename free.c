@@ -21,11 +21,13 @@ void ft_free(t_data *data)
     i = 0;
     while(data->tab_args[i].args)
     {
-
         free(data->tab_args[i].args);
         i++;
     }
-    free(data->tab_args);
-    free(data->str_chunk);
-    free(data->str_rl);
+    if (data->tab_args)
+        free(data->tab_args);
+    if (data->str_chunk)
+        free(data->str_chunk);
+    if (data->str_rl)
+        free(data->str_rl);
 }

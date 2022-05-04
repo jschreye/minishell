@@ -6,14 +6,14 @@
 #    By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 13:48:52 by grubin            #+#    #+#              #
-#    Updated: 2022/05/04 10:58:04 by jschreye         ###   ########.fr        #
+#    Updated: 2022/05/04 15:54:29 by jschreye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -I $HOME/.brew/Cellar/readline/8.1.2/include
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CC = gcc -I $(HOME)/.brew/Cellar/readline/8.1.2/include
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 AR = ar -rc
 
@@ -49,7 +49,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) -lreadline -o $@ $^ -L$(LIBFT_DIR) -lft
+	@$(CC) $(CFLAGS) -lreadline -o $@ $^ -L$(LIBFT_DIR) -lft 
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)

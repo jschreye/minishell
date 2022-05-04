@@ -20,27 +20,26 @@ int ft_exec_cmd(t_data *data, char **envp)
             perror("shell");
         exit(EXIT_FAILURE);
     }
+	if (data->str_path)
+		free(data->str_path);
     return (0);
 }
 
 int ft_access_path(t_data *data)
 {
     int i;
-    int len;
     char *final_path;
 
-    len = ft_strlen(data->tab_args[0].args[0]);
-    final_path = malloc(len * sizeof(char) + 1);
-    final_path = ft_strdup("");
     final_path = ft_join("/", data->tab_args[0].args[0]);
     i = 0;
     while (data->tab_getenv[i])
     {
         data->str_path = ft_join(data->tab_getenv[i], final_path);
-        if (!access(data->str_path, X_OK))
+        if (!access(data->str_path, F_OK))
             break ;
         i++;
         free(data->str_path);
+		data->str_path = NULL;
     }
     free(final_path);
     return (0);
