@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:48:32 by grubin            #+#    #+#             */
-/*   Updated: 2022/05/04 15:37:32 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:15:02 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include <readline/history.h>
 #include "libft/libft.h"
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <signal.h>
 
 typedef struct  s_cmd
@@ -29,6 +28,15 @@ typedef struct  s_cmd
     char **args;
 } t_cmd;
 
+typedef struct s_var
+{
+    int i;
+    int i_tok;
+    int i_res;
+    int count;
+    char *token_tmp;
+}               t_var;
+
 typedef struct s_data
 {
     int     i_chunk;
@@ -36,10 +44,12 @@ typedef struct s_data
     char    *str_getenv;
     char    *str_rl;
     char    *str_path;
+    char    **envp;
     char    **tab_getenv;
     char    **tab_chunck;
-    t_cmd   *tab_args;
+    t_cmd   *tab_cmd;
 }   t_data;
+
 
 void ft_print_tab(char **tab);
 
@@ -64,7 +74,10 @@ int ft_del_chunck_full_space(t_data *data);
 int ft_if_space(t_data *data);
 int ft_if_chevron(t_data *data);
 int ft_init_cmd(t_data *data);
-int ft_check_quote_space(t_data *data , int i);
-void ft_free(t_data *data);
+int ft_if_pipe(t_data *data);
+int ft_if_sq(t_data *data);
+int ft_if_dq(t_data *data);
+int ft_check_tab_args(t_data *data);
+int ft_dollar(t_cmd *tab);
 
 #endif

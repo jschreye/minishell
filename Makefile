@@ -6,13 +6,13 @@
 #    By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 13:48:52 by grubin            #+#    #+#              #
-#    Updated: 2022/05/04 15:54:29 by jschreye         ###   ########.fr        #
+#    Updated: 2022/05/18 15:34:33 by jschreye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-CC = gcc -I $(HOME)/.brew/Cellar/readline/8.1.2/include
+CC = gcc -I $HOME/.brew/Cellar/readline/8.1.2/include
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 AR = ar -rc
@@ -22,7 +22,7 @@ SRCS_DIR = ./src \
 OBJS_DIR = ./objs
 INC_DIR = .
 LIBFT_DIR = ./libft
-LIBFT = libft.a
+LIBFT = $(LIBFT_DIR)/libft.a
 
 
 SRCS = 	main.c \
@@ -34,9 +34,9 @@ SRCS = 	main.c \
 		utils_chunck.c \
 		chunck_bis.c \
 		init_cmd.c \
-		free.c \
-		#check_error.c \
-
+		chunk_quote.c \
+		check_tab_args.c \
+		dollar.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
@@ -47,9 +47,11 @@ RM = rm -f
 all : $(NAME)
 
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -lreadline -o $@ $^ -L $(LIBFT_DIR) -lft
+
+$(LIBFT) :
 	@$(MAKE) -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) -lreadline -o $@ $^ -L$(LIBFT_DIR) -lft 
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)

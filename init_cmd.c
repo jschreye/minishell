@@ -6,7 +6,7 @@
 /*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:47:29 by grubin            #+#    #+#             */
-/*   Updated: 2022/04/28 16:55:30 by grubin           ###   ########.fr       */
+/*   Updated: 2022/05/05 13:30:38 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int ft_malloc_tab_args(t_data *data)
             count++;
         i++;
     }
-    data->tab_args = ft_calloc((count + 2), sizeof(t_cmd));
+    data->tab_cmd = ft_calloc((count + 2), sizeof(t_cmd));// free
     return (0);
 }
 
@@ -54,11 +54,11 @@ int ft_init_tab_args(t_data *data, int count)
         {
             i_arg = 0;
             i_cmd++;
-            data->tab_args[i_cmd].args = ft_calloc(count + 1, sizeof(char*));
+            data->tab_cmd[i_cmd].args = ft_calloc(count + 1, sizeof(char*));//free
         }
         else
         {
-            data->tab_args[i_cmd].args[i_arg] = data->tab_chunck[i_chunk]; 
+            data->tab_cmd[i_cmd].args[i_arg] = data->tab_chunck[i_chunk]; 
             i_arg++;
         }
     }
@@ -71,7 +71,7 @@ int ft_init_cmd(t_data *data)
     
     ft_malloc_tab_args(data);
     count = ft_count_token(data);
-    data->tab_args[0].args = ft_calloc(count + 1, sizeof(char*));
+    data->tab_cmd[0].args = ft_calloc(count + 1, sizeof(char*));//free
     ft_init_tab_args(data, count);
     return (0);
 }
