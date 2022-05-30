@@ -26,19 +26,21 @@ void ft_free(t_data *data)
         free(data->str_rl);
     if (data->str_chunk)
         free(data->str_chunk);
-    i = 0;
+    i=0;
     while (data->tab_getenv[i])
     {
         free(data->tab_getenv[i]);
         i++;
     }
     free(data->tab_getenv);
+    
     i = 0;
     while (data->tab_chunck[i])
     {
         free(data->tab_chunck[i]);
         i++;
     }
+    
     free(data->tab_chunck);
     i = 0;
     while (data->tab_cmd[i].args)
@@ -52,7 +54,7 @@ void ft_free(t_data *data)
 int main(int argc, char **argv, char **envp) 
 {
     t_data data;
-    
+
     data.envp = envp;
     if (argc == 1)
     {
@@ -65,14 +67,12 @@ int main(int argc, char **argv, char **envp)
             add_history(data.str_rl);
             ft_create_str_chunck(&data);
             data.tab_chunck = ft_split(data.str_chunk, '\n');//free
+            ft_dollar(data.tab_chunck);
             ft_init_cmd(&data);
-            for(int i_cmd = 0; data.tab_cmd[i_cmd].args; i_cmd++)
-                for(int i_arg = 0; data.tab_cmd[i_cmd].args[i_arg]; i_arg++)
-                    printf("str_tab_args[%d][%d] AVANT = %s\n",i_cmd, i_arg, data.tab_cmd[i_cmd].args[i_arg]);
             ft_check_tab_args(&data);
             for(int i_cmd = 0; data.tab_cmd[i_cmd].args; i_cmd++)
                 for(int i_arg = 0; data.tab_cmd[i_cmd].args[i_arg]; i_arg++)
-                    printf("str_tab_args[%d][%d] APRES = %s\n",i_cmd, i_arg, data.tab_cmd[i_cmd].args[i_arg]);
+                    printf("str_tab_args[%d][%d] AVANT = %s\n",i_cmd, i_arg, data.tab_cmd[i_cmd].args[i_arg]);
             //ft_access_path(&data);
             //ft_exec_cmd(&data, envp);
             ft_free(&data);
@@ -80,6 +80,6 @@ int main(int argc, char **argv, char **envp)
     }
     else
         printf("Error argument\n");
-	(void)argv;
+    (void)argv;
     return 0; 
 }

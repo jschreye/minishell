@@ -6,131 +6,139 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:39:08 by grubin            #+#    #+#             */
-/*   Updated: 2022/05/18 15:46:15 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/05/24 12:57:46 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_init_var(t_var *var, char **str, char **result)
+char *ft_get_env(t_env *env)
 {
-    var->i = 0;
-    var->i_res = 0;
-    var->i_tok = 0;
-    var->count = 0;
-    if ((*result) == NULL)
-        (*result) = ft_strdup("");
-    var->token_tmp = ft_calloc(ft_strlen(*str) + ft_strlen(*result), sizeof(char));
-}
+    int i;
+    int i_env;
 
-int ft_include_env(char **str, char **result, int size_env)//il y a un leaks  quelque part
-{
-    t_var var;
-    
-    ft_init_var(&var, str, result);
-    while ((*str)[var.i])
-    {
-        if ((*str)[var.i] == '$' && var.count < 1)
-        {
-            var.count++;
-            while((*result)[var.i_res])
-            {
-                var.token_tmp[var.i_tok] = (*result)[var.i_res];
-                var.i_tok++;
-                var.i_res++;
-            }
-            var.i = var.i + (size_env + 1);
-        }
-        var.token_tmp[var.i_tok] = (*str)[var.i];
-        var.i_tok++;
-        var.i++;
-    }
-    *str = var.token_tmp;// str pas free
-    return (var.i_res);
-}
-
-int ft_check_env(char **str, int i)//il y a un leaks  quelque part
-{
-    int     i_env;
-    char    *env_tmp;
-    char    *result;
+    i = 0;
     i_env = 0;
-    env_tmp = ft_calloc(ft_strlen(*str), sizeof(char));//free
-    i++;
-    while ((*str)[i])
+    while (env->str_tmp[i])
     {
-        if ((*str)[i] == '"' || (*str)[i] == ' ' || (*str)[i] == '$')
-            break ;
-        env_tmp[i_env] = (*str)[i];
-        i++;
-        i_env++;
+        if (env->str_tmp[i] == '$')
+        {
+            i++;
+            while (ft_isalpha(env->str_tmp[i]) == 1)
+            {
+                env->env_tmp[i_env] = env->str_tmp[i];
+                i++;
+                i_env++;
+            }
+            break;
+        }
+        i++;      
     }
-    result = getenv(env_tmp);
-    i = ft_include_env(str, &result, ft_strlen(env_tmp));
-    free(env_tmp);
+    env->size_env = ft_strlen(env->env_tmp);
+    env->result = getenv(env->env_tmp);
+    free(env->env_tmp);
+    return (env->result);
+}
+
+int ft_init_env(t_env *env)
+{
+    if (env->tmp != NULL)
+        free(env->tmp);
+    env->tmp = ft_calloc(2048, sizeof(char));// free
+    env->env_tmp = ft_calloc(ft_strlen(env->str_tmp), sizeof(char));
+    env->i_res = 0;
+    env->i_str = 0;
+    env->i_tmp = 0;
+    env->count = 0;
+    return (0);
+}
+
+int ft_change_env(t_env *env, int i)
+{
+    ft_init_env(env);
+    env->result = ft_get_env(env);
+    if ((env->result) == NULL)
+        (env->result) = ft_strdup("");
+    i = - 1;
+    while (env->str_tmp[++i])
+    {
+        if (env->str_tmp[i] == '$' && env->count < 1)
+        {
+            env->count++;
+            while (env->result[env->i_res])
+            {
+                env->tmp[env->i_tmp] = env->result[env->i_res];
+                env->i_tmp++;
+                env->i_res++;
+            }
+            i = i + (env->size_env + 1);
+        }
+        env->tmp[env->i_tmp] = env->str_tmp[i];
+        env->i_tmp++;
+    }
+    env->str_tmp = ft_realloc(env->str_tmp, 2048);
+    ft_strlcpy(env->str_tmp, env->tmp, ft_strlen(env->tmp) + 1);
     return (i);
 }
 
-int ft_check_str_with_dollar(char **str)
+int ft_include_env(t_env *env)
 {
     int i;
-    
+
     i = 0;
-    while ((*str)[i])
+    while (env->str_tmp[i])
     {
-        if ((*str)[i] == '"' && (*str)[i + 1] != '\0')
-        {    
+        if (env->str_tmp[i] == '\'')
+        {
             i++;
-            while ((*str)[i])
+            while(env->str_tmp[i] != '\'')
+                i++;
+        }
+        if (env->str_tmp[i] == '"' && env->str_tmp[i + 1] != '\0')
+        {
+            i++;
+            while (env->str_tmp[i])
             {
-                if ((*str)[i] == '$' && (*str)[i + 1] != ' ')
-                    i = ft_check_env(str, i);
+                if (env->str_tmp[i] == '$' && env->str_tmp[i + 1] != ' ')// factoriser
+                    i = ft_change_env(env, i);
                 else
                     i++;
-            } 
+            }               
         }
-        else if ((*str)[i] == '$' && (*str)[i + 1] == '\'')
-            ft_memmove(*str, *str + 1, ft_strlen(*str));
-        else if ((*str)[i] == '$')
-            i = ft_check_env(str, i);
+        else if (env->str_tmp[i] == '$' && env->str_tmp[i + 1] == '\'')
+            ft_memmove(&env->str_tmp[i], &env->str_tmp[i + 1], ft_strlen(env->str_tmp));
+        else if (env->str_tmp[i] == '$')
+            i = ft_change_env(env, i);
         else
             i++;
     }
     return (0);
 }
 
-int ft_check_dollar(char **str)
+int ft_dollar(char **tab)
 {
+    t_env env;
     int i;
-
-    i = 0;
-    while ((*str)[i])
-    {
-        if ((*str)[i] == '$')
-        {
-            ft_check_str_with_dollar(str);
-            break ;
-        }
-        i++;
-    }
-    return (0);
-}
-
-int ft_dollar(t_cmd *tab)
-{
-    int i_cmd;
-    int i_arg;
     
-    i_cmd = 0;
-    while (tab[i_cmd].args)
+    env.env_tmp = NULL;
+    env.result = NULL;
+    env.str_tmp = NULL;
+    env.tmp = NULL;
+    i = 0;
+    while (tab[i])
     {
-        i_arg = 0;
-        while (tab[i_cmd].args[i_arg])
+        if (ft_strchr(tab[i], '$'))
         {
-            ft_check_dollar(&tab[i_cmd].args[i_arg]);
-            i_arg++;
+            env.str_tmp = ft_strdup(tab[i]);//free
+            ft_include_env(&env);
+            tab[i] = ft_realloc(tab[i], 2048);
+            ft_strlcpy(tab[i], env.str_tmp, ft_strlen(env.str_tmp) + 1);
+            free(env.str_tmp);
+            i++;
         }
-        i_cmd++;
+        else
+            i++;
     }
+    free(env.tmp);
     return (0);
 }

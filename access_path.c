@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int ft_exec_cmd(t_data *data, char **envp)
+int ft_exec_cmd(t_data *data)
 {
     pid_t   pid;
     int     status;
@@ -13,7 +13,7 @@ int ft_exec_cmd(t_data *data, char **envp)
         waitpid(pid, &status, 0);
     else
     {
-        if(execve(data->str_path, &data->tab_cmd[0].args[0], envp) == - 1)
+        if(execve(data->str_path, &data->tab_cmd[0].args[0], data->envp) == - 1)
             perror("shell");
         exit(EXIT_FAILURE);
     }
@@ -39,5 +39,6 @@ int ft_access_path(t_data *data)
         data->str_path = NULL;
     }
     free(final_path);
+    ft_exec_cmd(data);
     return (0);
 }

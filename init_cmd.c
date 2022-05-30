@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 10:47:29 by grubin            #+#    #+#             */
-/*   Updated: 2022/05/05 13:30:38 by grubin           ###   ########.fr       */
+/*   Updated: 2022/05/24 11:03:22 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ int ft_init_tab_args(t_data *data, int count)
     i_chunk = - 1;
     i_cmd = 0;
     i_arg = 0;
+    data->size_cmd = 1;
     while (data->tab_chunck[++i_chunk])
     {
         if (data->tab_chunck[i_chunk][0] == '|')
         {
             i_arg = 0;
             i_cmd++;
+            data->size_cmd++;
             data->tab_cmd[i_cmd].args = ft_calloc(count + 1, sizeof(char*));//free
         }
         else

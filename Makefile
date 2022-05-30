@@ -6,7 +6,7 @@
 #    By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 13:48:52 by grubin            #+#    #+#              #
-#    Updated: 2022/05/18 15:34:33 by jschreye         ###   ########.fr        #
+#    Updated: 2022/05/23 13:04:58 by jschreye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS = 	main.c \
 		chunck_bis.c \
 		init_cmd.c \
 		chunk_quote.c \
-		check_tab_args.c \
+		create_pipe.c \
 		dollar.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
@@ -48,7 +48,7 @@ all : $(NAME)
 
 
 $(NAME) : $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -lreadline -o $@ $^ -L $(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS)  -o $@ $^ -L $(LIBFT_DIR) -lft -lreadline
 
 $(LIBFT) :
 	@$(MAKE) -C $(LIBFT_DIR)

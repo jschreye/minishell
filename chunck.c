@@ -6,7 +6,7 @@
 /*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 14:16:04 by grubin            #+#    #+#             */
-/*   Updated: 2022/05/05 10:19:16 by grubin           ###   ########.fr       */
+/*   Updated: 2022/05/19 15:03:26 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int ft_if_charact_while(t_data *data, int i)
         if (data->str_rl[i] == '\'')
         {
             i = ft_str_chunck(data, i);
-            while (data->str_rl[i] != '\'')
+            while (data->str_rl[i] != '\'' && data->str_rl[i] != '\0')
                 i = ft_str_chunck(data, i);
         }
         if (data->str_rl[i] == '"')
         {
             i = ft_str_chunck(data, i);
-            while (data->str_rl[i] != '"')
+            while (data->str_rl[i] != '"' && data->str_rl[i] != '\0')
                 i = ft_str_chunck(data, i);
         } 
         if (data->str_rl[i] == '|' || data->str_rl[i] == '<'

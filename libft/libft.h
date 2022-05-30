@@ -6,7 +6,7 @@
 /*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 08:53:30 by grubin            #+#    #+#             */
-/*   Updated: 2022/04/25 16:06:04 by grubin           ###   ########.fr       */
+/*   Updated: 2022/05/20 12:11:45 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	*ft_join(char const *s1, char const *s2);
+void    *ft_realloc(void *ptr, size_t size);
+char    *ft_strcat(char *dest, char *src);
 
 #endif
