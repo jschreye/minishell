@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/14 11:37:58 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/21 15:57:49 by grubin           ###   ########.fr       */
+/*   Created: 2022/06/03 14:22:45 by jschreye          #+#    #+#             */
+/*   Updated: 2022/06/15 09:02:29 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void ft_pwd(t_data *data)
 {
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-	{
-		return (0);
-	}
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0' && i < n - 1)
-	{
-		i++;
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+    printf("%s\n", ft_getenv(data, "PWD"));
 }

@@ -6,7 +6,7 @@
 /*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:54:30 by grubin            #+#    #+#             */
-/*   Updated: 2022/05/02 11:57:12 by grubin           ###   ########.fr       */
+/*   Updated: 2022/06/10 13:41:09 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@ int ft_str_chunck(t_data *data, int i)
 
 void ft_create_chunck(t_data *data, int i)
 {
-    ft_memmove(data->str_rl, data->str_rl + i , ft_strlen(data->str_rl));
+    char *tmp;
+
+    tmp = ft_calloc(1024, sizeof(char));
+    ft_strcpy(tmp, &data->str_rl[i]);
+    ft_bzero(data->str_rl, ft_strlen(data->str_rl));
+    ft_strcpy(data->str_rl, tmp);
+    free(tmp);
     data->str_chunk = ft_strjoin(data->str_chunk, "\n");
     data->i_chunk++;
 }
