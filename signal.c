@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:18:18 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/21 18:03:31 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:52:54 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void signal_handler(int signal)
 {
     if (signal == SIGINT)
     {
-        return_sig = 1;
+        g_return_sig = 1;
         rl_replace_line("", 0);
         ft_putendl_fd("",1);
         rl_on_new_line();
@@ -24,7 +24,7 @@ void signal_handler(int signal)
     }
     else if (signal == SIGQUIT)
     {
-        return_sig = 0;
+        g_return_sig = 0;
         rl_on_new_line();
         rl_redisplay(); 
     }

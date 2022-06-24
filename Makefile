@@ -73,7 +73,7 @@ $(OBJS_DIR)/%.o : %.c | $(OBJS_DIR)
 debug: CFLAGS += -g3 -fsanitize=address -fno-omit-frame-pointer
 debug: $(LIBFT) $(OBJS) $(NAME)
 
-valgrind: CFLAGS += -g3
+valgrind: CFLAGS += -g
 valgrind: $(LIBFT) $(OBJS) $(NAME)
 
 clean :

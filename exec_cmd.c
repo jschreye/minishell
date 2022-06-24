@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 14:05:17 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/22 15:34:43 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/24 09:31:22 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,27 @@ int ft_init_fd(t_data *data, t_fd *files, int i)
     return (0);
 }
 
-int ft_pipe(t_data *data)
+int ft_pipe(t_data *data, t_fd *files)
 {
-    t_fd    files;
     int     i;
     int     fd[data->nbr_cmd-1][2];
     int     pid;
     int     status;
    
     i = 0;
-    while (i < data->nbr_cmd-1)
+    while (i < data->nbr_cmd - 1)
     {
         pipe(fd[i]);
         i++;
     }
     i = 0;
-    while (i <= data->nbr_cmd-1)
+    while (i <= data->nbr_cmd - 1)
     {
-        ft_init_fd(data, &files, i);
+        ft_init_fd(data, files, i);
         pid = fork();
         if (pid == 0)
         {
-            ft_exec_child(data, fd, i, &files);
+            ft_exec_child(data, fd, i, files);
             ft_free_tab(data->tab_cpy);
             close_pipes(data->nbr_cmd-1, fd);
             exit(0);
@@ -66,7 +65,7 @@ int ft_pipe(t_data *data)
     }
     close_pipes(data->nbr_cmd-1, fd);
     waitpid(pid, &status, 0);
-    return_sig = WEXITSTATUS(status);
+    g_return_sig = WEXITSTATUS(status);
     return (0);
 }
 
@@ -89,6 +88,7 @@ int ft_check_redir(t_data *data)
 
 int ft_exec_cmds(t_data *data)
 {
+    t_fd    files;
     char *tmp;
 
     tmp = "|\0";
@@ -99,9 +99,14 @@ int ft_exec_cmds(t_data *data)
         printf("$: syntax error near unexpected token `|'\n");
         return (0);
     }
-    if (data->nbr_cmd == 1 && ft_check_redir(data) == 0)
-        ft_builtins_without_pipe(data);
+    if (data->nbr_cmd == 1 && ft_check_redir(data) == 1)
+    {  
+        ft_init_fd(data, &files, 0);
+        exec_red(data, &files);
+    }
+    else if (data->nbr_cmd == 1 && ft_check_redir(data) == 0)
+        ft_builtins_without_pipe(data, &files);
     else
-        ft_pipe(data);
+        ft_pipe(data, &files);
     return (0);;
 }

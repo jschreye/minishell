@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:35:46 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/21 17:31:41 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:49:34 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,5 @@ int ft_export(t_data *data)
     }
     else if (ft_count_args(data, 0) > 1)
         ft_export_new_env(&export, data);
-    return (return_sig = 0);
+    return (g_return_sig = 0);
 }

@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:39:08 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/22 13:44:35 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:49:34 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int ft_no_change(t_env *env, int i)
     env->tmp = ft_calloc(2048, sizeof(char));
     if (strncmp(env->str_tmp, "$?\0", 3) == 0)
     {
-        str = ft_itoa(return_sig);
+        str = ft_itoa(g_return_sig);
         env->str_tmp = ft_realloc(env->str_tmp, ft_strlen(str) + 1);
         ft_strcpy(env->str_tmp, str);
     }

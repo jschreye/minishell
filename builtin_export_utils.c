@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 14:39:54 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/21 17:31:15 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:49:34 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int ft_error_export(t_data *data)
             printf("export: `%s': not a valide identifier\n", data->tab_cmd[0].args[i]);
         i++;
     }
-    return (return_sig = 1);
+    return (g_return_sig = 1);
 }
 
 void ft_tri_env(t_data *data, t_export *export)

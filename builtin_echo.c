@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:21:52 by jschreye          #+#    #+#             */
-/*   Updated: 2022/06/22 09:10:11 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:56:53 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int ft_echo(char **tab)
     if (!tab[i])
         printf("\n");
     else if (ft_strncmp(tab[i], "-n\0", 3) == 0 && !tab[i + 1])
-        return (0);
+        return (g_return_sig = 0);
     else if (ft_strncmp(tab[i], "-n\0", 3) == 0 && tab[i + 1])
     {
         while (tab[++i])
@@ -37,5 +37,5 @@ int ft_echo(char **tab)
             printf("%s ", tab[i]);
         printf("\n");
     }
-    return (return_sig = 0);
+    return (g_return_sig = 0);
 }

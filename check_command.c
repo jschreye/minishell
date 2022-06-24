@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 11:10:33 by jschreye          #+#    #+#             */
-/*   Updated: 2022/06/22 14:13:48 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:49:34 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int ft_check_valid_command(t_data *data, t_err *err)
         if (err->k == -1 && data->tab_cmd[err->i].args[0] != NULL)
         {
             printf("$: %s: command not found\n", data->tab_cmd[err->i].args[0]);
-            return_sig = 1;
+            g_return_sig = 1;
         }
         err->i++;
     }
     ft_free_tab(data->tab_getenv);
-    return (return_sig = 0);
+    return (g_return_sig = 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 14:22:45 by jschreye          #+#    #+#             */
-/*   Updated: 2022/06/15 09:02:29 by grubin           ###   ########.fr       */
+/*   Updated: 2022/06/23 15:46:21 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 
 void ft_pwd(t_data *data)
 {
-    printf("%s\n", ft_getenv(data, "PWD"));
+    char *str;
+    str = ft_getenv(data, "PWD");
+    printf("%s\n", str);
+    free(str);
 }

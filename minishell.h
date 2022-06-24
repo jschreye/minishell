@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:48:32 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/22 13:57:42 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/24 09:47:01 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,14 @@
 #include <fcntl.h>
 #include <dirent.h>
 
-int return_sig;
+int g_return_sig;
+
+typedef struct s_her
+{
+    char    *input;
+    int     nb_lines;
+    char    **tmp; 
+}               t_her;
 
 typedef struct s_err
 {
@@ -92,6 +99,7 @@ typedef struct  s_cmd
 
 typedef struct s_data
 {
+    int     c_cat;
     int     nbr_cat;
     int     nbr_cmd;
     int     i_chunk;
@@ -126,7 +134,7 @@ int ft_init_cmd(t_data *data);
 int ft_if_pipe(t_data *data);
 int ft_if_sq(t_data *data);
 int ft_if_dq(t_data *data);
-int ft_pipe(t_data *data);
+int ft_pipe(t_data *data, t_fd *files);
 int ft_dollar(t_data *data, char **tab);
 int ft_check_builtins(t_data *data, int i);
 int ft_cmds_with_pipe(t_data *data);
@@ -144,7 +152,7 @@ int ft_cd(t_data *data, int i_cmd);
 int ft_unset(t_data *data);
 void init_signals(struct termios *sig);
 int ft_builtins_with_pipe(t_data *data, int i);
-int ft_builtins_without_pipe(t_data *data);
+int ft_builtins_without_pipe(t_data *data, t_fd *files);
 int ft_chdir(t_cd *cd, t_data *data, int i_cmd);
 int ft_go_up_the_path(t_cd *cd, t_data *data);
 void ft_free_cd(t_cd *cd);
@@ -177,5 +185,6 @@ void    ft_init_red(t_fd *files);
 int ft_check_error_redir(t_data *data);
 int ft_check_cat(t_data *data);
 int ft_check_valid_command(t_data *data, t_err *err);
+void ft_return_cat(t_data *data);
 
 #endif

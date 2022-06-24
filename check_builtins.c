@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:54:59 by jschreye          #+#    #+#             */
-/*   Updated: 2022/06/21 17:38:28 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/23 14:39:35 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ int ft_builtins_with_pipe(t_data *data, int i)
     else if (ft_envcmp(data, i) == 0 && ft_count_args(data, i) == 1)
         printf("%s\n", data->tab_cpy[0]);
     else
-        return (return_sig = 0);
+        return (g_return_sig = 0);
     exit(0);
 }
 
-int ft_builtins_without_pipe(t_data *data)
+int ft_builtins_without_pipe(t_data *data, t_fd *files)
 {
     if (ft_del_quote(data->tab_cmd[0].args) == 1)
         return (0);
@@ -130,6 +130,6 @@ int ft_builtins_without_pipe(t_data *data)
     else if (ft_envcmp(data, 0) == 0 && ft_count_args(data, 0) == 1)
          printf("%s\n", data->tab_cmd[0].args[0]);
     else
-        ft_pipe(data);
+        ft_pipe(data, files);
     return (0);
 }

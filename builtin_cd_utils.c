@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 12:48:39 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/21 17:26:30 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/22 15:49:34 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int ft_chdir(t_cd *cd, t_data *data, int i_cmd)
         printf("cd: no such file or directory: %s\n", data->tab_cmd[i_cmd].args[1]);
         ft_free_cd(cd);
     }
-    return (return_sig = 0);
+    return (g_return_sig = 0);
 }
 
 int ft_count_double_point(t_cd *cd, t_data *data)
@@ -67,7 +67,7 @@ int ft_count_double_point(t_cd *cd, t_data *data)
             cd->count_slash++;
         i++;
     }
-    return (return_sig = 0);
+    return (g_return_sig = 0);
 }
 
 int ft_split_slash(t_cd *cd)
@@ -79,7 +79,7 @@ int ft_split_slash(t_cd *cd)
         cd->path = ft_strcpy(cd->path, "/");
         return (0);
     }
-    return (return_sig = 0);
+    return (g_return_sig = 0);
 }
 
 int ft_go_up_the_path(t_cd *cd, t_data *data)
@@ -103,5 +103,5 @@ int ft_go_up_the_path(t_cd *cd, t_data *data)
         j++;
     }
     ft_free_tab(cd->tab);
-    return (return_sig = 0);
+    return (g_return_sig = 0);
 }

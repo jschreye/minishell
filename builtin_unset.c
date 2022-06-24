@@ -6,7 +6,7 @@
 /*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 08:54:11 by jschreye          #+#    #+#             */
-/*   Updated: 2022/06/21 17:33:30 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/23 10:43:09 by jschreye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int ft_new_tab_unset(t_data *data, char *arg, t_unset *unset)
     free(tmp);
     ft_free_tab(data->envp);
     ft_realloc_envp_unset(data, unset);
-    return (0);
+    return (g_return_sig = 0);
 }
 
 int ft_unset(t_data *data)
@@ -90,9 +90,9 @@ int ft_unset(t_data *data)
         else
         {
             printf("$: unset: `%s': not a valid identifier\n", data->tab_cmd[0].args[i]);
-            return_sig = 1;
+            g_return_sig = 1;
             i++;
         }
     }
-    return (0);
+    return (g_return_sig = 0);
 }
