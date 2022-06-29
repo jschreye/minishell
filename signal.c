@@ -3,46 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jschreye <jschreye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 10:18:18 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/22 15:52:54 by jschreye         ###   ########.fr       */
+/*   Updated: 2022/06/28 09:34:24 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void signal_handler(int signal)
+int	ft_check_if_child(int new_val)
 {
-    if (signal == SIGINT)
-    {
-        g_return_sig = 1;
-        rl_replace_line("", 0);
-        ft_putendl_fd("",1);
-        rl_on_new_line();
-        rl_redisplay();
-    }
-    else if (signal == SIGQUIT)
-    {
-        g_return_sig = 0;
-        rl_on_new_line();
-        rl_redisplay(); 
-    }
+	static int	val;
+
+	val = 0;
+	if (new_val >= 0)
+		val = new_val;
+	return (val);
 }
 
-void    ft_hide_keystrockes(struct termios *sig)
+void	signal_handler(int signal)
 {
-    struct termios attr;
-
-    tcgetattr(STDIN_FILENO, sig);
-    tcgetattr(STDIN_FILENO, &attr);
-    attr.c_lflag &= ~ECHOCTL; 
-    tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
+	if (signal == SIGINT)
+	{
+		if (ft_check_if_child(-1) == 0)
+		{
+			rl_replace_line("", 0);
+			ft_putendl_fd("", 1);
+			rl_on_new_line();
+			rl_redisplay();
+			g_return_sig = 1;
+		}
+		else
+		{
+			g_return_sig = 128 + signal;
+		}
+	}
+	else if (signal == SIGQUIT)
+	{
+		g_return_sig = 128 + signal;
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
-void init_signals(struct termios *sig)
+void	ft_hide_keystrockes(struct termios *sig)
 {
-    ft_hide_keystrockes(sig);
-    signal(SIGINT, signal_handler);
-    signal(SIGQUIT, signal_handler);
+	struct termios	attr;
+
+	tcgetattr(STDIN_FILENO, sig);
+	tcgetattr(STDIN_FILENO, &attr);
+	attr.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &attr);
+}
+
+void	init_signals(struct termios *sig)
+{
+	ft_hide_keystrockes(sig);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 }

@@ -6,7 +6,7 @@
 /*   By: grubin <grubin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:21:39 by grubin            #+#    #+#             */
-/*   Updated: 2022/06/10 12:46:08 by grubin           ###   ########.fr       */
+/*   Updated: 2022/06/22 09:25:11 by grubin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 {
 	unsigned char	*p;
 	size_t			i;
+
 	p = dst;
 	if (!dst && !src)
 		return (dst);
@@ -39,7 +40,6 @@ void	*ft_memmove(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
-
 
 //int main() 
 //{

@@ -13,7 +13,6 @@ INC_DIRS = -Ilibft -I$(HOME)/.brew/Cellar/readline/8.1.2/include
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-
 SRCS =  main.c \
         main_utils.c \
         utils_quote.c \
@@ -45,8 +44,8 @@ SRCS =  main.c \
         exec_redir.c \
         check_file_out.c \
         error_redir.c \
-        check_cat.c \
-        check_command.c \
+        exec_cmd_utils.c \
+        check_cmd.c \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(notdir $(SRCS:.c=.o)))
 
@@ -73,7 +72,7 @@ $(OBJS_DIR)/%.o : %.c | $(OBJS_DIR)
 debug: CFLAGS += -g3 -fsanitize=address -fno-omit-frame-pointer
 debug: $(LIBFT) $(OBJS) $(NAME)
 
-valgrind: CFLAGS += -g
+valgrind: CFLAGS += -g3
 valgrind: $(LIBFT) $(OBJS) $(NAME)
 
 clean :
